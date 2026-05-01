@@ -1,124 +1,39 @@
-#include "heap.h"
+#ifndef HEAP_H
+#define HEAP_H
 
-HEAP::HEAP(int size) {
-    capacity = size;
-    heapSize = 0;
-    array = new int[capacity];
-}
+#include <iostream>
+using namespace std;
 
-HEAP::~HEAP() {
-    delete[] array;
-}
-
-int HEAP::leftChild(int index) {
-    return 2*index + 1;
-}
-int HEAP::rightChild(int index) {
-    return 2*index + 2;
-}
-int HEAP::parent(int index) {
-    return (index - 1) / 2;
-}
-
-void HEAP::insertH(int data) {
-    if (heapSize == capacity) {
-        cout << "Heap overflow - can't insert"<< endl;
-        return;
-    }
-
-    array[heapSize] = data;
-    heapifyUp(heapSize);
-    heapSize++;
-}
-
-void HEAP::heapifyUp(int index) {
-    while(index != 0 && array[parent(index)] < array[index]) {
-        swap(array[parent(index)], array[index]);
-        index = parent(index);
-    }
-}
-
-int HEAP::peek() {
-    if (heapSize <= 0) {
-        cout << "Heap is empty" << endl;
-        return -1;
-    }
-
-    return array[0];
-}
-
-void HEAP::deleteMax() {
-    if (heapSize <= 0) {
-        cout << "Heap is empty - nothing to delete" << endl;
-        return;
-    }
-
-    if (heapSize == 1) {
-        heapSize--;
-        return;
-    }
-
-    array[0] = array[heapSize - 1];
-    heapSize--;
-
-    heapifyDown(0);
-}
-
-void HEAP::deleteH(int data) {
-    int index = -1;
-
-    // search for data - linear search :( O(n)
-    for (int i = 0; i < heapSize; i++) {
-        if (array[i] == data) {
-            index = i;
-            break;
-        }
-    }
-
-    if (index == -1) {
-        cout << "Element not found - can't delete"  << endl;
-        return;
-    }
-
-    array[index] = array[heapSize - 1];
-    heapSize--;
-
-    heapifyDown(index);
-}
-
-
-void HEAP::heapifyDown(int index) 
+class HEAP 
 {
-    // complete this
-}
+    private:
+        int* array;
+        int capacity;
+        int heapSize;
 
- 
-void HEAP::buildH(int arr[], int n) 
-{
-    // complete this
-}
+        int leftChild(int index);
+        int rightChild(int index);
+        int parent(int index);
 
-void HEAP::replace(int oldData, int newData)
-{
-    // complete this
-}
+        void heapifyUp(int index);
+        void heapifyDown(int index);
+        void heapifyDownMin(int index);
 
-void HEAP::heapSort(int arr[], int n)
-{
-    // complete this
-}
+    public:
+        HEAP(int size);
+        ~HEAP();
 
-void HEAP::printHeap(int index, int depth) {
-    if (index >= heapSize)
-        return;
+        void buildH(int arr[], int n);
+        void insertH(int data);
+        void deleteMax();
+        void deleteH(int data);
+        int peek();
 
-    printHeap(rightChild(index), depth + 1);
+        void replace(int oldData, int newData);
+        void heapSort(int arr[], int n);
 
-    for (int i = 0; i < depth; i++) {
-        cout << "  "; // indentation based on depth
-    }
+        void switchMinMax();
+        void printHeap(int index, int depth);
+};
 
-    cout << array[index] << endl;
-
-    printHeap(leftChild(index), depth + 1);
-}
+#endif
