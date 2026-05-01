@@ -56,7 +56,17 @@ int main() {
         }
 
         else if (command == 7) {
-            cout << "Heap Sort (not shown here)" << endl;
+            int arr[] = {28, 77, 48, 52, 59, 91, 28, 76};
+            int n = 8;
+
+            cout << "Heap Sort:" << endl;
+            h.heapSort(arr, n);
+
+            for (int i = 0; i < n; i++) {
+                cout << arr[i] << " ";
+            }
+
+            cout << endl;
         }
 
         else if (command == 8) {
