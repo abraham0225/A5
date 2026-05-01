@@ -55,12 +55,15 @@ int main() {
             h.switchMinMax();
         }
 
+        // ✅ FIXED HEAP SORT (uses separate heap)
         else if (command == 7) {
             int arr[] = {28, 77, 48, 52, 59, 91, 28, 76};
             int n = 8;
 
+            HEAP sortHeap(20);
+
             cout << "Heap Sort:" << endl;
-            h.heapSort(arr, n);
+            sortHeap.heapSort(arr, n);
 
             for (int i = 0; i < n; i++) {
                 cout << arr[i] << " ";
